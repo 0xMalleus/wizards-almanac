@@ -11,8 +11,20 @@ datasource db {
 }
 
 model Wizards {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
+  id              Int      @id
+  name            String
+  image           String
+  backgroundColor String
+  createdAt       DateTime
+  updatedAt       DateTime
+  traits          Traits[]
+}
+
+model Traits {
+  id        Int       @id @default(autoincrement())
+  type      String    @unique
+  value     String    @unique
   createdAt DateTime
   updatedAt DateTime
+  wizards   Wizards[]
 }
