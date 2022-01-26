@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateWizardDto } from './dto/create-wizard.dto';
 import { UpdateWizardDto } from './dto/update-wizard.dto';
+import { Wizard } from './entities/wizard.entity';
+import { WizardMap } from './mappers/wizard.map';
 import { IpfsWizardRepository } from './repositories/ipfs-wizard.repository';
+import { PrismaWizardRepository } from './repositories/prisma-wizard.repository';
 
 @Injectable()
 export class WizardsService {
-  constructor(private readonly ipfsWizardRepository: IpfsWizardRepository) {}
+  constructor(
+    private readonly ipfsWizardRepository: IpfsWizardRepository,
+    private readonly wizardRepository: PrismaWizardRepository,
+  ) {}
 
   create(createWizardDto: CreateWizardDto) {
     return 'This action adds a new wizard';
@@ -15,15 +21,20 @@ export class WizardsService {
     return `This action returns all wizards`;
   }
 
-  findOne(id: number) {
-    return this.ipfsWizardRepository.getWizardById(id);
+  async findOne(id: number): Promise<Wizard> {
+    const wizardOrNull = await this.wizardRepository.getWizardById(id);
+
+    if (wizardOrNull == null) {
+      const wizardFromIpfs = await this.ipfsWizardRepository.getWizardById(id);
+      return this.addToPersistentStorage(wizardFromIpfs);
+    }
+
+    return WizardMap.toDomain(wizardOrNull);
   }
 
-  update(id: number, updateWizardDto: UpdateWizardDto) {
-    return `This action updates a #${id} wizard`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} wizard`;
+  private async addToPersistentStorage(wizard: Wizard) {
+    return WizardMap.toDomain(
+      this.wizardRepository.upsertWizardById(wizard.id, wizard),
+    );
   }
 }

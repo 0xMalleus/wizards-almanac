@@ -29,14 +29,4 @@ export class WizardsController {
   findOne(@Param('id') id: string) {
     return this.wizardsService.findOne(+id);
   }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWizardDto: UpdateWizardDto) {
-    return this.wizardsService.update(+id, updateWizardDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.wizardsService.remove(+id);
-  }
 }

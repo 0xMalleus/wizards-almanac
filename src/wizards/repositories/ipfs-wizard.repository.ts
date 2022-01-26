@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { plainToClass } from 'class-transformer';
 import { Wizard } from '../entities/wizard.entity';
-import { WizardTrait } from '../entities/trait.entity';
 import { WizardMap } from '../mappers/wizard.map';
 
 const IPFS_WIZARD_ENDPOINT =
@@ -25,8 +23,6 @@ interface IRawTrait {
 
 @Injectable()
 export class IpfsWizardRepository {
-  constructor(private readonly wizardMap: WizardMap) {}
-
   async getWizardById(id: number): Promise<Wizard> {
     console.log(`Asking IPFS for wizard id ${id}...`);
 
@@ -36,6 +32,8 @@ export class IpfsWizardRepository {
       );
 
       const rawWizard: IRawWizard = await response.data;
+
+      console.log('IPFS returned:', rawWizard);
 
       return this.fromIpfsToDomain(rawWizard);
     } catch (error) {
@@ -50,11 +48,11 @@ export class IpfsWizardRepository {
   }
 
   private fromIpfsToDomain(rawWizard: IRawWizard): Wizard {
-    const id = rawWizard.attributes.find(
-      (t) => t.trait_type === 'Serial',
-    )?.value;
+    const id =
+      rawWizard.attributes.find((t) => t.trait_type === 'Serial')?.value || -1;
 
-    if (!id) {
+    // we use -1 since wizards are indexed from 0 and if(!0) evaluates to false
+    if (id === -1) {
       throw new Error(
         'Wizard did not have a Serial attribute. This should be impossible.',
       );
@@ -68,7 +66,7 @@ export class IpfsWizardRepository {
       traits: rawWizard.attributes.map((t) => this.formatTrait(t)),
     };
 
-    return this.wizardMap.toDomain(wizard);
+    return WizardMap.toDomain(wizard);
   }
 
   private formatTrait(rawTrait: IRawTrait) {

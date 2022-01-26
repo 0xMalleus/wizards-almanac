@@ -6,7 +6,7 @@ import { validateOrReject, validateSync } from 'class-validator';
 
 @Injectable()
 export class WizardMap {
-  public toDomain(raw: any) {
+  public static toDomain(raw: any) {
     const wizard = plainToInstance(Wizard, raw);
 
     const validationResult = validateSync(wizard);

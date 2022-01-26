@@ -15,16 +15,18 @@ model Wizards {
   name            String
   image           String
   backgroundColor String
-  createdAt       DateTime
-  updatedAt       DateTime
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
   traits          Traits[]
 }
 
 model Traits {
   id        Int       @id @default(autoincrement())
-  type      String    @unique
-  value     String    @unique
-  createdAt DateTime
-  updatedAt DateTime
+  type      String
+  value     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   wizards   Wizards[]
+
+  @@unique([type, value])
 }

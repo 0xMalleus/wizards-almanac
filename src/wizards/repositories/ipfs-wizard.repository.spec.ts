@@ -10,15 +10,13 @@ const axiosMock = axios as jest.Mocked<typeof axios>;
 
 describe('IpfsWizardRepository', () => {
   let repository: IpfsWizardRepository;
-  let wizardMapMock: MockProxy<WizardMap>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [IpfsWizardRepository, WizardMap],
+      providers: [IpfsWizardRepository],
     }).compile();
 
     repository = module.get<IpfsWizardRepository>(IpfsWizardRepository);
-    wizardMapMock = module.get(WizardMap);
   });
 
   it('should be defined', () => {

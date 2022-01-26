@@ -2,7 +2,7 @@ import { WizardMap } from './wizard.map';
 
 describe('WizardMap', () => {
   it('should be defined', () => {
-    expect(new WizardMap()).toBeDefined();
+    expect(WizardMap).toBeDefined();
   });
 
   describe('toDomain()...', () => {
@@ -25,8 +25,7 @@ describe('WizardMap', () => {
 
     describe('when the input is valid...', () => {
       it('should return a valid wizard', () => {
-        const wizardMap = new WizardMap();
-        const wizard = wizardMap.toDomain(validWizardProps);
+        const wizard = WizardMap.toDomain(validWizardProps);
 
         expect(wizard.id).toEqual(validWizardProps.id);
         expect(wizard.name).toEqual(validWizardProps.name);
@@ -40,7 +39,6 @@ describe('WizardMap', () => {
 
     describe('when validating id...', () => {
       it('should require id to be between 0 and 10000', () => {
-        const wizardMap = new WizardMap();
         const outOfLowerBoundWizard = {
           ...validWizardProps,
           id: -1,
@@ -51,72 +49,66 @@ describe('WizardMap', () => {
           id: 20000,
         };
 
-        expect(() => wizardMap.toDomain(outOfLowerBoundWizard)).toThrow();
-        expect(() => wizardMap.toDomain(outOfUpperBoundWizard)).toThrow();
+        expect(() => WizardMap.toDomain(outOfLowerBoundWizard)).toThrow();
+        expect(() => WizardMap.toDomain(outOfUpperBoundWizard)).toThrow();
       });
 
       it('should require id to be a number', () => {
-        const wizardMap = new WizardMap();
         const invalidIdWizard = {
           ...validWizardProps,
           id: 'not a number',
         };
 
-        expect(() => wizardMap.toDomain(invalidIdWizard)).toThrow();
+        expect(() => WizardMap.toDomain(invalidIdWizard)).toThrow();
       });
     });
 
     describe('when validating name...', () => {
       it('should require name to be a string', () => {
-        const wizardMap = new WizardMap();
         const invalidNameWizard = {
           ...validWizardProps,
           name: {},
         };
 
-        expect(() => wizardMap.toDomain(invalidNameWizard)).toThrow();
+        expect(() => WizardMap.toDomain(invalidNameWizard)).toThrow();
       });
     });
 
     describe('when validating image...', () => {
       it('should require image to be a valid url', () => {
-        const wizardMap = new WizardMap();
         const invalidImageWizard = {
           ...validWizardProps,
           image: 'not a valid url',
         };
 
-        expect(() => wizardMap.toDomain(invalidImageWizard)).toThrow();
+        expect(() => WizardMap.toDomain(invalidImageWizard)).toThrow();
       });
     });
 
     describe('when validating backgroundColor...', () => {
       it('should require backgroundColor to be a valid hex color', () => {
-        const wizardMap = new WizardMap();
         const invalidBackgroundColorWizard = {
           ...validWizardProps,
           backgroundColor: 'not a valid hex color',
         };
 
         expect(() =>
-          wizardMap.toDomain(invalidBackgroundColorWizard),
+          WizardMap.toDomain(invalidBackgroundColorWizard),
         ).toThrow();
       });
     });
 
     describe('when validating traits...', () => {
       it('should require traits to be an array', () => {
-        const wizardMap = new WizardMap();
         const invalidTraitsWizard = {
           ...validWizardProps,
           traits: {},
         };
 
-        expect(() => wizardMap.toDomain(invalidTraitsWizard)).toThrow();
+        expect(() => WizardMap.toDomain(invalidTraitsWizard)).toThrow();
       });
 
       it('should only accept valid wizard traits', () => {
-        const wizardMap = new WizardMap();
         const invalidTraitsWizard = {
           ...validWizardProps,
           traits: [
@@ -125,7 +117,7 @@ describe('WizardMap', () => {
           ],
         };
 
-        expect(() => wizardMap.toDomain(invalidTraitsWizard)).toThrow();
+        expect(() => WizardMap.toDomain(invalidTraitsWizard)).toThrow();
       });
     });
   });
