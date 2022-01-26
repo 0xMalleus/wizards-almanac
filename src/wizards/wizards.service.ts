@@ -24,7 +24,7 @@ export class WizardsService {
   async findOne(id: number): Promise<Wizard> {
     const wizardOrNull = await this.wizardRepository.getWizardById(id);
 
-    if (wizardOrNull == null) {
+    if (!wizardOrNull) {
       const wizardFromIpfs = await this.ipfsWizardRepository.getWizardById(id);
       return this.addToPersistentStorage(wizardFromIpfs);
     }

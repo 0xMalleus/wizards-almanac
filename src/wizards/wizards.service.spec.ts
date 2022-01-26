@@ -7,7 +7,7 @@ import { mock, MockProxy } from 'jest-mock-extended';
 describe('WizardsService', () => {
   let service: WizardsService;
   let ipfsRepositoryMock: MockProxy<IpfsWizardRepository>;
-  let prismaRepositoryMock: MockProxy<PrismaWizardRepository>;
+  let prismaWizardRepo: MockProxy<PrismaWizardRepository>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -23,7 +23,7 @@ describe('WizardsService', () => {
 
     service = module.get<WizardsService>(WizardsService);
     ipfsRepositoryMock = module.get(IpfsWizardRepository);
-    prismaRepositoryMock = module.get(PrismaWizardRepository);
+    prismaWizardRepo = module.get(PrismaWizardRepository);
   });
 
   it('should be defined', () => {
