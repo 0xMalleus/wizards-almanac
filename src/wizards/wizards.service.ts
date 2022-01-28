@@ -15,37 +15,47 @@ export class WizardsService {
   ) {}
 
   create(createWizardDto: CreateWizardDto) {
-    const rawWizard = {
+    const validRawWizard = {
       id: 2633,
       name: 'Illusionist Aleister of the Hall',
       image:
-        'https://cloudflare-ipfs.com/ipfs/QmbtiPZfgUzHd79T1aPcL9yZnhGFmzwar7h4vmfV6rV8Kq/2633.png',
-      traits: [
-        { type: 'serial', value: '2633' },
-        { type: 'background', value: 'Black' },
-        { type: 'body', value: 'Aristocrat Blue' },
-        { type: 'head', value: 'Professor' },
-        { type: 'prop', value: "Isaac's Apple" },
-        { type: 'familiar', value: 'Great Owl' },
-        { type: 'rune', value: 'Rune of Uranus' },
-      ],
-      backgroundColor: '000000',
+        'https://cloudflare-ipfs.com/ipfs/QmfUgAKioFE8taS41a2XEjYFrkbfpVyXYRt7c6iqTZVy9G/2633',
+      background: {
+        hex: '000000',
+        name: 'Black',
+      },
+      body: {
+        name: 'Aristocrat Blue',
+      },
+      head: {
+        name: 'Professor',
+      },
+      prop: {
+        name: "Isaac's Apple",
+      },
+      familiar: {
+        name: 'Great Owl',
+      },
+      rune: {
+        name: 'Rune of Uranus',
+      },
     };
+    const wizard = WizardMap.toDomain(validRawWizard);
 
-    return 'This creates a wizard';
+    return this.addToPersistentStorage(wizard);
   }
 
   findMany(QueryWizardsDto: QueryWizardsDto) {
     return 'This finds many wizards';
   }
 
-  async findOne(id: number): Promise<Wizard> {
-    return this.ipfsWizardRepository.getWizardById(id);
+  async findOne(id: number) {
+    const result = await this.wizardRepository.getWizardById(id);
+    console.log(result);
+    return result;
   }
 
-  // private async addToPersistentStorage(wizard: Wizard) {
-  //   return WizardMap.toDomain(
-  //     this.wizardRepository.upsertWizardById(wizard.id, wizard),
-  //   );
-  // }
+  private async addToPersistentStorage(wizard: Wizard) {
+    this.wizardRepository.upsertWizardById(wizard.id, wizard);
+  }
 }

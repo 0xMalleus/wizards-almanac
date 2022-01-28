@@ -39,9 +39,10 @@ export class IpfsWizardRepository {
     } catch (error) {
       const { message } = error;
 
-      console.log(`Error while trying to fetch wizard ${id}:`, {
-        message,
-      });
+      Logger.debug(
+        `Error while trying to fetch wizard ${id}:`,
+        JSON.stringify(message, null, 2),
+      );
 
       throw error;
     }

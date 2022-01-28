@@ -110,7 +110,7 @@ describe('WizardMap', () => {
             ...validRawWizard,
             background: {
               hex: '000000',
-              name: {},
+              name: {} as any,
             },
           };
 
@@ -124,7 +124,7 @@ describe('WizardMap', () => {
         const invalidBodyWizard = {
           ...validRawWizard,
           body: {
-            name: {},
+            name: {} as any,
           },
         };
 
@@ -136,7 +136,7 @@ describe('WizardMap', () => {
       it('should require head.name to be a string', () => {
         const invalidHeadWizard = {
           ...validRawWizard,
-          head: {},
+          head: {} as any,
         };
 
         expect(() => WizardMap.toDomain(invalidHeadWizard)).toThrow();
@@ -147,7 +147,7 @@ describe('WizardMap', () => {
       it('should require prop.name to be a string', () => {
         const invalidPropWizard = {
           ...validRawWizard,
-          prop: {},
+          prop: {} as any,
         };
 
         expect(() => WizardMap.toDomain(invalidPropWizard)).toThrow();
@@ -158,7 +158,7 @@ describe('WizardMap', () => {
       it('should require familiar.name to be a string', () => {
         const invalidFamiliarWizard = {
           ...validRawWizard,
-          familiar: {},
+          familiar: {} as any,
         };
 
         expect(() => WizardMap.toDomain(invalidFamiliarWizard)).toThrow();
@@ -169,7 +169,7 @@ describe('WizardMap', () => {
       it('should require rune.name to be a string', () => {
         const invalidRuneWizard = {
           ...validRawWizard,
-          rune: {},
+          rune: {} as any,
         };
 
         expect(() => WizardMap.toDomain(invalidRuneWizard)).toThrow();

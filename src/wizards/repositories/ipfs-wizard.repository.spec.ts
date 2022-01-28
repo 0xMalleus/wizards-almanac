@@ -67,42 +67,10 @@ describe('IpfsWizardRepository', () => {
         });
       });
 
-      // TODO: Make this test less fragile. Hardcoding results of WizardMap feels incorrect.
-      it('should return the correct Wizard entity', async () => {
+      it('should return a wizard', async () => {
         const wizard = await repository.getWizardById(666);
 
         expect(wizard).toBeInstanceOf(Wizard);
-        expect(wizard.id).toEqual(666);
-        expect(wizard.name).toEqual('Old Scratch');
-        expect(wizard.image).toEqual(
-          `https://cloudflare-ipfs.com/ipfs/QmbtiPZfgUzHd79T1aPcL9yZnhGFmzwar7h4vmfV6rV8Kq/666.png`,
-        );
-        expect(wizard.backgroundColor).toEqual('1E0200');
-        expect(wizard.traits).toContainEqual({ type: 'serial', value: '666' });
-        expect(wizard.traits).toContainEqual({
-          type: 'background',
-          value: 'Red',
-        });
-        expect(wizard.traits).toContainEqual({
-          type: 'body',
-          value: 'Red Suit',
-        });
-        expect(wizard.traits).toContainEqual({
-          type: 'head',
-          value: 'Evil One',
-        });
-        expect(wizard.traits).toContainEqual({
-          type: 'prop',
-          value: "Wizard's Pipe",
-        });
-        expect(wizard.traits).toContainEqual({
-          type: 'familiar',
-          value: 'Forever Bat',
-        });
-        expect(wizard.traits).toContainEqual({
-          type: 'rune',
-          value: 'Rune of Brimstone',
-        });
       });
     });
 

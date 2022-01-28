@@ -19,12 +19,24 @@ import { Rune } from '../entities/rune.entity';
  *
  * We use `class-validator` to check data requirements beyond just the type.
  **/
+
+type ToDomainWizardProps = {
+  id: unknown;
+  name: unknown;
+  image: unknown;
+  background: Partial<Background>;
+  body: Partial<Body>;
+  head: Partial<Head>;
+  prop: Partial<Prop>;
+  familiar: Partial<Familiar>;
+  rune: Partial<Rune>;
+};
 @Injectable()
 export class WizardMap {
-  public static toDomain(raw: any): Wizard {
+  public static toDomain(raw: ToDomainWizardProps): Wizard {
     const background = plainToInstance(Background, {
-      name: raw.background.name,
-      hex: raw.background.hex,
+      name: raw.background?.name,
+      hex: raw.background?.hex,
     });
     const body = plainToInstance(Body, raw.body);
     const head = plainToInstance(Head, raw.head);
@@ -44,7 +56,9 @@ export class WizardMap {
       rune,
     };
 
-    const wizard = plainToInstance(Wizard, input);
+    const wizard = plainToInstance(Wizard, input, {
+      excludeExtraneousValues: true,
+    });
 
     const validationResult = validateSync(wizard);
 
@@ -66,34 +80,41 @@ export class WizardMap {
 
     const background = {
       name:
-        raw.attributes.find((t) => t.trait_type === 'background')?.value || '',
+        raw.attributes
+          .find((t) => t.trait_type === 'background')
+          ?.value.toString() || '',
       hex: raw.background_color,
     };
 
     const body = {
       name:
-        raw.attributes.find((t) => t.trait_type === 'body')?.value || 'None',
+        raw.attributes.find((t) => t.trait_type === 'body')?.value.toString() ||
+        'None',
     };
 
     const head = {
       name:
-        raw.attributes.find((t) => t.trait_type === 'head')?.value || 'None',
+        raw.attributes.find((t) => t.trait_type === 'head')?.value.toString() ||
+        'None',
     };
 
     const prop = {
       name:
-        raw.attributes.find((t) => t.trait_type === 'prop')?.value || 'None',
+        raw.attributes.find((t) => t.trait_type === 'prop')?.value.toString() ||
+        'None',
     };
 
     const familiar = {
       name:
-        raw.attributes.find((t) => t.trait_type === 'familiar')?.value ||
-        'None',
+        raw.attributes
+          .find((t) => t.trait_type === 'familiar')
+          ?.value.toString() || 'None',
     };
 
     const rune = {
       name:
-        raw.attributes.find((t) => t.trait_type === 'rune')?.value || 'None',
+        raw.attributes.find((t) => t.trait_type === 'rune')?.value.toString() ||
+        'None',
     };
 
     return WizardMap.toDomain({
