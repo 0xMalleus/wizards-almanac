@@ -4,10 +4,10 @@ export enum WizardTraitType {
   Serial = 'serial',
   Background = 'background',
   Body = 'body',
+  Familiar = 'familiar',
   Head = 'head',
   Prop = 'prop',
-  familiar = 'familiar',
-  rune = 'rune',
+  Rune = 'rune',
 }
 
 export const WIZARD_TRAIT_TYPES: string[] = Object.values(WizardTraitType);

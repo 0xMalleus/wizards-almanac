@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateWizardDto } from './dto/create-wizard.dto';
 import { UpdateWizardDto } from './dto/update-wizard.dto';
+import { QueryWizardsDto } from './dto/query-wizards.dto';
 import { Wizard } from './entities/wizard.entity';
 import { WizardMap } from './mappers/wizard.map';
 import { IpfsWizardRepository } from './repositories/ipfs-wizard.repository';
@@ -17,8 +18,8 @@ export class WizardsService {
     return 'This action adds a new wizard';
   }
 
-  findAll() {
-    return `This action returns all wizards`;
+  findMany(QueryWizardsDto: QueryWizardsDto): Promise<Wizard[]> {
+    return this.wizardRepository.findManyWizards(QueryWizardsDto);
   }
 
   async findOne(id: number): Promise<Wizard> {

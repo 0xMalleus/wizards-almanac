@@ -11,22 +11,76 @@ datasource db {
 }
 
 model Wizards {
-  id              Int      @id
+  id              Int        @id
   name            String
   image           String
   backgroundColor String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  traits          Traits[]
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  Background      Background @relation(fields: [backgroundName], references: [name])
+  backgroundName  String     @default("Black")
+  Familiar        Familiar   @relation(fields: [familiarName], references: [name])
+  familiarName    String     @default("None")
+  Body            Body       @relation(fields: [bodyName], references: [name])
+  bodyName        String     @default("None")
+  Head            Head       @relation(fields: [headName], references: [name])
+  headName        String     @default("None")
+  Prop            Prop       @relation(fields: [propName], references: [name])
+  propName        String     @default("None")
+  Rune            Rune       @relation(fields: [runeName], references: [name])
+  runeName        String     @default("None")
 }
 
-model Traits {
-  id        Int       @id @default(autoincrement())
-  type      String
-  value     String
+model Background {
+  name      String    @id @unique
+  hex       String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   wizards   Wizards[]
-
-  @@unique([type, value])
 }
+
+model Body {
+  name      String    @id @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  wizards   Wizards[]
+}
+
+model Familiar {
+  name      String    @id @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  wizards   Wizards[]
+}
+
+model Head {
+  name      String    @id @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  wizards   Wizards[]
+}
+
+model Prop {
+  name      String    @id @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  wizards   Wizards[]
+}
+
+model Rune {
+  name      String    @id @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  wizards   Wizards[]
+}
+
+// model Traits {
+//   id        Int       @id @default(autoincrement())
+//   type      String
+//   value     String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+//   wizards   Wizards[]
+
+//   @@unique([type, value])
+// }

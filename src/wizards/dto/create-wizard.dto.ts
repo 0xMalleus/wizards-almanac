@@ -13,7 +13,7 @@ import { WizardTrait } from '../entities/trait.entity';
 export class CreateWizardDto {
   @IsNumber()
   @Min(0)
-  @Max(10000, { message: 'Wizard ID must be less than 10000' })
+  @Max(9999, { message: 'Wizard ID must be less than or equal to 9999' })
   id: number;
   @IsString()
   name: string;
