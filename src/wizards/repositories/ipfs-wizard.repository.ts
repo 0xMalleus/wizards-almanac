@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
 import { Wizard } from '../entities/wizard.entity';
 import { WizardMap } from '../mappers/wizard.map';
@@ -9,33 +9,33 @@ const IPFS_WIZARD_ENDPOINT =
 const IPFS_WIZARD_IMAGE_ENDPOINT =
   'https://cloudflare-ipfs.com/ipfs/QmbtiPZfgUzHd79T1aPcL9yZnhGFmzwar7h4vmfV6rV8Kq/';
 
-interface IRawWizard {
+export type RawIpfsWizard = {
   name: string;
   image: string;
-  attributes: IRawTrait[];
+  attributes: IpfsAttribute[];
   background_color: string;
-}
+};
 
-interface IRawTrait {
+type IpfsAttribute = {
   trait_type: string;
   value: string | number;
-}
+};
 
 @Injectable()
 export class IpfsWizardRepository {
   async getWizardById(id: number): Promise<Wizard> {
-    console.log(`Asking IPFS for wizard id ${id}...`);
+    Logger.debug(`Fetching wizard with id ${id} from IPFS`);
 
     try {
-      const response = await axios.get<IRawWizard>(
+      const response = await axios.get<RawIpfsWizard>(
         `${IPFS_WIZARD_ENDPOINT}${id}`,
       );
 
-      const rawWizard: IRawWizard = await response.data;
+      const rawWizard: RawIpfsWizard = await response.data;
 
-      console.log('IPFS returned:', rawWizard);
+      Logger.debug(`IPFS returned: ${JSON.stringify(rawWizard, null, 2)}`);
 
-      return this.fromIpfsToDomain(rawWizard);
+      return WizardMap.toDomainFromIpfs(rawWizard);
     } catch (error) {
       const { message } = error;
 
@@ -45,38 +45,5 @@ export class IpfsWizardRepository {
 
       throw error;
     }
-  }
-
-  private fromIpfsToDomain(rawWizard: IRawWizard): Wizard {
-    const id =
-      rawWizard.attributes.find((t) => t.trait_type === 'Serial')?.value || -1;
-
-    // we use -1 since wizards are indexed from 0 and if(!0) evaluates to false
-    if (id === -1) {
-      throw new Error(
-        'Wizard did not have a Serial attribute. This should be impossible.',
-      );
-    }
-
-    const wizard = {
-      id: Number(id),
-      name: rawWizard.name,
-      image: this.fromIdToImageUri(id),
-      backgroundColor: rawWizard.background_color,
-      traits: rawWizard.attributes.map((t) => this.formatTrait(t)),
-    };
-
-    return WizardMap.toDomain(wizard);
-  }
-
-  private formatTrait(rawTrait: IRawTrait) {
-    return {
-      type: rawTrait.trait_type.toLowerCase(),
-      value: rawTrait.value.toString(),
-    };
-  }
-
-  private fromIdToImageUri(id: any): string {
-    return `${IPFS_WIZARD_IMAGE_ENDPOINT}${id}.png`;
   }
 }

@@ -11,24 +11,23 @@ datasource db {
 }
 
 model Wizards {
-  id              Int        @id
-  name            String
-  image           String
-  backgroundColor String
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  Background      Background @relation(fields: [backgroundName], references: [name])
-  backgroundName  String     @default("Black")
-  Familiar        Familiar   @relation(fields: [familiarName], references: [name])
-  familiarName    String     @default("None")
-  Body            Body       @relation(fields: [bodyName], references: [name])
-  bodyName        String     @default("None")
-  Head            Head       @relation(fields: [headName], references: [name])
-  headName        String     @default("None")
-  Prop            Prop       @relation(fields: [propName], references: [name])
-  propName        String     @default("None")
-  Rune            Rune       @relation(fields: [runeName], references: [name])
-  runeName        String     @default("None")
+  id             Int        @id
+  name           String
+  image          String
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  Background     Background @relation(fields: [backgroundName], references: [name])
+  backgroundName String     @default("Black")
+  Familiar       Familiar   @relation(fields: [familiarName], references: [name])
+  familiarName   String     @default("None")
+  Body           Body       @relation(fields: [bodyName], references: [name])
+  bodyName       String     @default("None")
+  Head           Head       @relation(fields: [headName], references: [name])
+  headName       String     @default("None")
+  Prop           Prop       @relation(fields: [propName], references: [name])
+  propName       String     @default("None")
+  Rune           Rune       @relation(fields: [runeName], references: [name])
+  runeName       String     @default("None")
 }
 
 model Background {

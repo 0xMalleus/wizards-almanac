@@ -8,7 +8,6 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { WizardTrait } from '../entities/trait.entity';
 
 export class CreateWizardDto {
   @IsNumber()
@@ -21,7 +20,4 @@ export class CreateWizardDto {
   image: string;
   @IsHexColor()
   backgroundColor: string;
-  @ValidateNested()
-  @Type(() => WizardTrait)
-  traits: WizardTrait[];
 }

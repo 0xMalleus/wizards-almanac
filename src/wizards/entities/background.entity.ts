@@ -1,11 +1,9 @@
-import { plainToInstance } from 'class-transformer';
-import { IsString, IsHexColor, validateSync } from 'class-validator';
-
-export type BackgroundProps = Pick<Background, 'name' | 'backgroundColorHex'>;
+import { IsString, IsHexColor, IsNotEmpty } from 'class-validator';
 
 export class Background {
   @IsString()
+  @IsNotEmpty()
   name: string;
   @IsHexColor()
-  backgroundColorHex: string;
+  hex: string;
 }
