@@ -60,11 +60,16 @@ export class WizardMap {
       excludeExtraneousValues: true,
     });
 
-    const validationResult = validateSync(wizard);
+    const validationErrors = validateSync(wizard);
 
-    if (validationResult.length > 0) {
+    if (validationErrors.length > 0) {
+      const parsedErrors = validationErrors.flatMap((error) =>
+        Object.values(error.constraints ?? {}),
+      );
+      const beautifiedErrors = parsedErrors.toString().replace(/,/g, '\n * ');
+
       throw new Error(
-        'Validation errors: ' + JSON.stringify(validationResult, null, 2),
+        `Validation failed when trying to Apparate wizard \n * ${beautifiedErrors} \n`,
       );
     }
 

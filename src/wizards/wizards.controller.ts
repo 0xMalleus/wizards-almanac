@@ -19,7 +19,6 @@ export class WizardsController {
 
   @Post()
   create(@Body() createWizardDto: CreateWizardDto) {
-    console.log('Post request recieved');
     return this.wizardsService.create(createWizardDto);
   }
 
