@@ -1,73 +1,108 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# The Wizards' Almanac
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The Wizards' Almanac is an API for [Forgotten Runes](https://www.forgottenrunes.com/).
+
+## Motivation
+
+Inspired by [PokéAPI](https://pokeapi.co/), The Wizards' Almanac aims to make creating for the Runiverse easier by providing a simple, easy to use API.
+
+Web3 right now requires a lot of technical sophistication right now and we can unlock the passion and skills of the community by abstracting that complexity and lowering the barrier to create.
+
+## Roadmap
+
+This is very much a work in progress but the current thinking is as follows:
+
+Planned features for v1.0.0:
+
+- [] Wizards
+- [] Souls
+- [] Ponies
+- [] Owner data (`/owner/:address`)
+
+Beyond v1.0.0:
+
+- [] GraphQL
+- [] Affinity data
+- [] Images for Wizard traits (props, heads, etc.)
+- [] Images for Souls traits (props, heads, etc.)
+
+## FAQ
+
+### Is this the official API?
+
+This is a FRWC community project. There is an API for the Forgotten Runes the site ([example](https://portal.forgottenrunes.com/api/souls/img/100)) but that's meant for internal use and isn't built for community use currently.
+
+### I have a great idea for a feature! Where do I add a suggestion?
+
+Feel free to [create an issue](https://github.com/0xMalleus/wizards-almanac/issues) on GitHub! Suggestions welcome!
+
+### You're doing something wrong! Where do I report a bug or problem with your design?
+
+Same as above! Create an issue or shoot me a message on FRWC Discord.
+
+### Isn't this some heavy duty tech for a simple API?
+
+Honestly it would have been much easier and way faster to do the current functionality with something like [JSON Server](https://github.com/typicode/json-server), however this is still very early stage.
+
+In order to support features like ownership data and GraphQL, we'll need to have something more robust.
+
+### Why did you use X, Y, Z coding pattern?
+
+I'm using this as a learning opportunity to try new patterns, none of them are an explicit endorsement and most of them will likely changes to accommodate future functionality.
+
+## Tech Stack
+
+[Nest](https://github.com/nestjs/nest) framework.
+[Prisma](https://www.prisma.io/) database.
+
+## Contributing
+
+### Help is welcome
+
+The Runiverse is a big place and there's lots of things that can be added and improved.
+
+Feel free to contribute either code, knowledge, or suggestions. Issues tagged with [help wanted](https://github.com/0xMalleus/wizards-almanac/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) often need knowledge as much as coding help.
+
+If you have questions about the technology feel free to open an Issue or send a DM.
 
 ## Installation
 
 ```bash
-$ npm install
+yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn test:cov
 ```
 
-## Support
+## Brought to you by
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- [Headmaster Aleister](https://www.forgottenrunes.com/lore/wizards/2633/0) aka [Malleus](https://twitter.com/0xMalleus)
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+The Wizard's Almanac is [MIT licensed](LICENSE).
