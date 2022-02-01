@@ -1,6 +1,9 @@
 import { plainToClass } from 'class-transformer';
 import {
+  ArrayContains,
+  IsArray,
   IsDefined,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsPositive,
@@ -12,18 +15,30 @@ import {
 export class EnvironmentVariables {
   /* General ENV */
   @IsDefined()
-  @IsNumber()
-  @IsPositive()
-  readonly QUEUE_CONCURRENCY: number;
-
-  @IsDefined()
   @IsString()
   @IsNotEmpty()
-  readonly ADMIN_PASSWORD: string;
+  readonly API_KEY: string;
 
   /* Database ENV */
   @IsDefined()
   readonly DATABASE_URL: string;
+
+  /* Queue ENV */
+  @IsDefined()
+  @IsNumber()
+  @IsPositive()
+  /**
+   * the number of tasks per interval
+   */
+  readonly QUEUE_INTERVAL: number;
+
+  @IsDefined()
+  @IsNumber()
+  @IsPositive()
+  /**
+   * the length of each interval in milliseconds
+   */
+  readonly QUEUE_INTERVAL_CAP: number;
 }
 
 export function validateConfig(

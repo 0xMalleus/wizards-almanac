@@ -16,7 +16,7 @@ import { Prop } from '../entities/prop.entity';
 import { Familiar } from '../entities/familiar.entity';
 import { Rune } from '../entities/rune.entity';
 
-export class CreateWizardDto {
+export class UpsertWizardDto {
   @IsNumber()
   @Min(0)
   @Max(9999, { message: 'Wizard ID must be less than or equal to 9999' })

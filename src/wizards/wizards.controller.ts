@@ -7,19 +7,21 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { WizardsService } from './wizards.service';
-import { CreateWizardDto } from './dto/create-wizard.dto';
-import { UpdateWizardDto } from './dto/update-wizard.dto';
+import { UpsertWizardDto } from './dto/upsert-wizard.dto';
 import { QueryWizardsDto } from './dto/query-wizards.dto';
+import { ApiKeyGuard } from '../common/guards/api-key.guard';
 
 @Controller('wizards')
 export class WizardsController {
   constructor(private readonly wizardsService: WizardsService) {}
 
-  @Post()
-  create(@Body() createWizardDto: CreateWizardDto) {
-    return this.wizardsService.create(createWizardDto);
+  @UseGuards(ApiKeyGuard)
+  @Patch()
+  createOrUpdate(@Body() upsertWizardDto: UpsertWizardDto) {
+    return this.wizardsService.upsert(upsertWizardDto);
   }
 
   @Get()

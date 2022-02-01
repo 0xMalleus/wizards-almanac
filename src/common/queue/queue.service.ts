@@ -12,7 +12,8 @@ export class QueueService {
   public getQueue(name: string): PQueue {
     if (!this.queues[name]) {
       this.queues[name] = new PQueue({
-        concurrency: this.configService.get<number>('QUEUE_CONCURRENCY'),
+        intervalCap: this.configService.get<number>('QUEUE_INTERVAL_CAP'),
+        interval: this.configService.get<number>('QUEUE_INTERVAL'),
       });
     }
 
