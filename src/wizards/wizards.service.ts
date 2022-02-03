@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { UpsertWizardDto as UpsertWizardDto } from './dto/upsert-wizard.dto';
-import { QueryWizardsDto } from './dto/query-wizards.dto';
+import { ListWizardsDto } from './dto/list-wizards.dto';
 import { Wizard } from './entities/wizard.entity';
 import { WizardMap } from './mappers/wizard.map';
 import { IpfsWizardRepository } from './repositories/ipfs-wizard.repository';
@@ -15,8 +15,8 @@ export class WizardsService {
     private readonly queueService: QueueService,
   ) {}
 
-  findMany(QueryWizardsDto: QueryWizardsDto) {
-    return 'This finds many wizards';
+  findMany(QueryWizardsDto: ListWizardsDto) {
+    return this.wizardRepository.findManyWizards(QueryWizardsDto);
   }
 
   findOne(id: number) {

@@ -8,12 +8,27 @@ import {
   Delete,
   Query,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { WizardsService } from './wizards.service';
 import { UpsertWizardDto } from './dto/upsert-wizard.dto';
-import { QueryWizardsDto } from './dto/query-wizards.dto';
+import { ListWizardsDto } from './dto/list-wizards.dto';
 import { ApiKeyGuard } from '../common/guards/api-key.guard';
+import {
+  classToPlain,
+  classToPlainFromExist,
+  instanceToPlain,
+} from 'class-transformer';
 
+@UsePipes(
+  new ValidationPipe({
+    transform: true,
+    transformOptions: {
+      enableImplicitConversion: true,
+    },
+  }),
+)
 @Controller('wizards')
 export class WizardsController {
   constructor(private readonly wizardsService: WizardsService) {}
@@ -25,7 +40,7 @@ export class WizardsController {
   }
 
   @Get()
-  findAll(@Query() query: QueryWizardsDto) {
+  list(@Query() query: ListWizardsDto) {
     return this.wizardsService.findMany(query);
   }
 

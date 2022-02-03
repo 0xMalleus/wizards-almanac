@@ -1,50 +1,93 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { QueryWizardsDto } from '../dto/query-wizards.dto';
+import { ListWizardsDto } from '../dto/list-wizards.dto';
 import { Wizard } from '../entities/wizard.entity';
 import { WizardMap } from '../mappers/wizard.map';
-
+import { Prisma } from '@prisma/client';
+import { identity } from 'rxjs';
 @Injectable()
 export class PrismaWizardRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  // async findManyWizards(query: QueryWizardsDto) {
-  //   const {
-  //     name,
-  //     background,
-  //     body,
-  //     head,
-  //     prop,
-  //     familiar,
-  //     rune,
-  //     limit,
-  //     offset,
-  //   } = query;
+  async findManyWizards(query: ListWizardsDto) {
+    const {
+      nameIncludes,
+      id,
+      background,
+      body,
+      head,
+      prop,
+      familiar,
+      rune,
+      offset,
+      limit,
+    } = query;
 
-  //   const wizardWhere = {};
+    const where: Prisma.WizardsWhereInput = {};
 
-  //   if (name) {
-  //     wizardWhere.name = {
-  //       contains: name,
-  //     };
-  //   }
+    if (nameIncludes) {
+      where.name = { contains: nameIncludes };
+    }
 
-  //   return await this.prisma.wizards.findMany({
-  //     where: wizardWhere,
-  //     select: {
-  //       id: true,
-  //       name: true,
-  //       image: true,
-  //       backgroundColor: true,
-  //       traits: {
-  //         select: {
-  //           type: true,
-  //           value: true,
-  //         },
-  //       },
-  //     },
-  //   });
-  // }
+    if (id && id.length) {
+      where.id = { in: id };
+    }
+
+    if (background && background.length) {
+      where.backgroundName = { in: background };
+    }
+
+    if (body && body.length) {
+      where.bodyName = { in: body };
+    }
+
+    if (head && head.length) {
+      where.headName = { in: head };
+    }
+
+    if (prop && prop.length) {
+      where.propName = { in: prop };
+    }
+
+    if (familiar && familiar.length) {
+      where.familiarName = { in: familiar };
+    }
+
+    if (rune && rune.length) {
+      where.runeName = { in: rune };
+    }
+
+    const wizards = await this.prisma.wizards.findMany({
+      where,
+      select: {
+        id: true,
+        name: true,
+        image: true,
+        Background: true,
+        Body: true,
+        Head: true,
+        Prop: true,
+        Familiar: true,
+        Rune: true,
+      },
+      take: limit,
+      skip: offset,
+    });
+
+    return wizards.map((wizard) =>
+      WizardMap.toDomain({
+        id: wizard.id,
+        name: wizard.name,
+        image: wizard.image,
+        background: wizard.Background,
+        body: wizard.Body,
+        head: wizard.Head,
+        prop: wizard.Prop,
+        familiar: wizard.Familiar,
+        rune: wizard.Rune,
+      }),
+    );
+  }
 
   async getWizardById(id: number) {
     const wizardOrNull = await this.prisma.wizards.findUnique({
