@@ -21,6 +21,7 @@ type IpfsAttribute = {
   value: string | number;
 };
 
+// TODO: Refactor this to use @nestjs/axios
 @Injectable()
 export class IpfsWizardRepository {
   async getWizardById(id: number): Promise<Wizard> {

@@ -12,8 +12,10 @@ export class ApiKeyGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
 
-    const authHeader = request.header('Authorization');
+    const authHeader = request.header('Authorization')?.split(' ');
 
-    return authHeader === this.configService.get<string>('API_KEY');
+    const apiKey = authHeader?.[1];
+
+    return apiKey === this.configService.get<string>('API_KEY');
   }
 }

@@ -15,12 +15,10 @@ import { WizardsService } from './wizards.service';
 import { UpsertWizardDto } from './dto/upsert-wizard.dto';
 import { ListWizardsDto } from './dto/list-wizards.dto';
 import { ApiKeyGuard } from '../common/guards/api-key.guard';
-import {
-  classToPlain,
-  classToPlainFromExist,
-  instanceToPlain,
-} from 'class-transformer';
 
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
+@ApiTags('wizards')
 @UsePipes(
   new ValidationPipe({
     transform: true,
@@ -33,10 +31,9 @@ import {
 export class WizardsController {
   constructor(private readonly wizardsService: WizardsService) {}
 
-  @UseGuards(ApiKeyGuard)
-  @Patch()
-  createOrUpdate(@Body() upsertWizardDto: UpsertWizardDto) {
-    return this.wizardsService.upsert(upsertWizardDto);
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.wizardsService.findOne(+id);
   }
 
   @Get()
@@ -44,8 +41,10 @@ export class WizardsController {
     return this.wizardsService.findMany(query);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.wizardsService.findOne(+id);
+  @UseGuards(ApiKeyGuard)
+  @Patch()
+  @ApiBearerAuth()
+  createOrUpdate(@Body() upsertWizardDto: UpsertWizardDto) {
+    return this.wizardsService.upsert(upsertWizardDto);
   }
 }
