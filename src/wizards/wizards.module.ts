@@ -4,8 +4,8 @@ import { WizardsController } from './wizards.controller';
 import { IpfsWizardRepository } from './repositories/ipfs-wizard.repository';
 import { WizardMap } from './mappers/wizard.map';
 import { PrismaWizardRepository } from './repositories/prisma-wizard.repository';
-import { PrismaModule } from 'src/prisma/prisma.module';
-import { CommonModule } from 'src/common/common.module';
+import { PrismaModule } from '../prisma/prisma.module';
+import { CommonModule } from '../common/common.module';
 
 @Module({
   imports: [PrismaModule, CommonModule],

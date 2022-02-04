@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateWizardDto } from './create-wizard.dto';
+import { UpsertWizardDto } from './upsert-wizard.dto';
 
-export class UpdateWizardDto extends PartialType(CreateWizardDto) {}
+export class UpdateWizardDto extends PartialType(UpsertWizardDto) {}

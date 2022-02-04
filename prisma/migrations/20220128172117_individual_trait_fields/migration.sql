@@ -26,7 +26,7 @@ PRAGMA foreign_keys=on;
 
 -- CreateTable
 CREATE TABLE "Background" (
-    "name" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT COLLATE NOCASE NOT NULL PRIMARY KEY,
     "hex" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
@@ -34,35 +34,35 @@ CREATE TABLE "Background" (
 
 -- CreateTable
 CREATE TABLE "Body" (
-    "name" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT COLLATE NOCASE NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Familiar" (
-    "name" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT COLLATE NOCASE NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Head" (
-    "name" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT COLLATE NOCASE NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Prop" (
-    "name" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT COLLATE NOCASE NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Rune" (
-    "name" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT COLLATE NOCASE NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );
@@ -71,17 +71,17 @@ CREATE TABLE "Rune" (
 PRAGMA foreign_keys=OFF;
 CREATE TABLE "new_Wizards" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "name" TEXT NOT NULL,
+    "name" TEXT COLLATE NOCASE NOT NULL,
     "image" TEXT NOT NULL,
     "backgroundColor" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
-    "backgroundName" TEXT NOT NULL DEFAULT 'Black',
-    "familiarName" TEXT NOT NULL DEFAULT 'None',
-    "bodyName" TEXT NOT NULL DEFAULT 'None',
-    "headName" TEXT NOT NULL DEFAULT 'None',
-    "propName" TEXT NOT NULL DEFAULT 'None',
-    "runeName" TEXT NOT NULL DEFAULT 'None',
+    "backgroundName" TEXT COLLATE NOCASE NOT NULL DEFAULT 'Black',
+    "familiarName" TEXT COLLATE NOCASE NOT NULL DEFAULT 'None',
+    "bodyName" TEXT COLLATE NOCASE NOT NULL DEFAULT 'None',
+    "headName" TEXT COLLATE NOCASE NOT NULL DEFAULT 'None',
+    "propName" TEXT COLLATE NOCASE NOT NULL DEFAULT 'None',
+    "runeName" TEXT COLLATE NOCASE NOT NULL DEFAULT 'None',
     CONSTRAINT "Wizards_backgroundName_fkey" FOREIGN KEY ("backgroundName") REFERENCES "Background" ("name") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Wizards_familiarName_fkey" FOREIGN KEY ("familiarName") REFERENCES "Familiar" ("name") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Wizards_bodyName_fkey" FOREIGN KEY ("bodyName") REFERENCES "Body" ("name") ON DELETE RESTRICT ON UPDATE CASCADE,

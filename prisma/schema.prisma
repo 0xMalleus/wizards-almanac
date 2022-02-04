@@ -72,14 +72,3 @@ model Rune {
   updatedAt DateTime  @updatedAt
   wizards   Wizards[]
 }
-
-// model Traits {
-//   id        Int       @id @default(autoincrement())
-//   type      String
-//   value     String
-//   createdAt DateTime  @default(now())
-//   updatedAt DateTime  @updatedAt
-//   wizards   Wizards[]
-
-//   @@unique([type, value])
-// }
