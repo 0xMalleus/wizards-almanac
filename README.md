@@ -1,5 +1,15 @@
 # The Wizards' Almanac
 
+> Hello and welcome! 👋🏻
+>
+> Wizards' Almanac was originally built to evaluate some new technology we were considering at my regular job and as an excuse to dive into the underlying tech for Forgotten Runes.
+>
+> As I learned more about the problem space, I got excited about the possibility expanding the scope to include more than just the "Core" content which is going to require some significant architectural changes. Late into building this, I also discovered many other excellent code solutions from projects like [Runebot](https://github.com/ajcrowe/runebot) that I'd like to incorporate as well.
+>
+> Assuming that other wizards agree that this should be a "Cult Code" project, I'll sunset this code in favor of a new project and repo that will expand the roadmap and can incorporate Cult Content.
+>
+> You can checkout this for more details/discussion [RFC](https://github.com/0xMalleus/wizards-almanac/issues/9).
+
 ## Description
 
 The Wizards' Almanac is an API for [Forgotten Runes](https://www.forgottenrunes.com/).
