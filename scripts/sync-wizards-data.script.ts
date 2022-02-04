@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../src/app.module';
 import { WizardsService } from '../src/wizards/wizards.service';
 import { ConfigService } from '@nestjs/config';
-import { Logger } from '@nestjs/common';
 
 async function syncWizardsData() {
   const app = await NestFactory.createApplicationContext(AppModule, {
