@@ -33,7 +33,7 @@ export class WizardsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.wizardsService.findOne(+id);
+    return this.wizardsService.findOne(Number(id));
   }
 
   @Get()

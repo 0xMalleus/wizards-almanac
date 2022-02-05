@@ -19,6 +19,12 @@ export class EnvironmentVariables {
   @IsNotEmpty()
   readonly API_KEY: string;
 
+  @IsDefined()
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
+  readonly SERVER_PORT: number;
+
   /* Database ENV */
   @IsDefined()
   readonly DATABASE_URL: string;
