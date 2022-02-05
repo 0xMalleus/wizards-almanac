@@ -5,8 +5,10 @@ FROM node:16.13.1-alpine As development
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY prisma ./prisma
 
 RUN yarn install --only=development
+RUN yarn prisma generate
 
 COPY . .
 
@@ -20,7 +22,6 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-COPY prisma ./prisma
 
 RUN yarn install --only=production
 
