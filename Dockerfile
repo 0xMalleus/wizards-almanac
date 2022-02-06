@@ -1,32 +1,26 @@
-# Based on https://blog.logrocket.com/containerized-development-nestjs-docker/
+# Less fragile/complex to use full node version with sqlite3
+FROM node:16.13.1 as development
 
-FROM node:16.13.1-alpine As development
+WORKDIR usr/src/app
 
-WORKDIR /usr/src/app
-
-COPY package*.json ./
+# Install node dependencies - done in a separate step so Docker can cache it.
+COPY package.json yarn.lock ./
 COPY prisma ./prisma
+RUN yarn install --frozen-lockfile
 
-RUN yarn install --only=development
-RUN yarn prisma generate
-
+# Copy project files into the docker image
 COPY . .
 
-RUN yarn run build
+# Build the project
+RUN yarn build
 
-FROM node:16.13.1-alpine as production
+FROM node:16.13.1 as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /usr/src/app
+WORKDIR usr/src/app
 
-COPY package*.json ./
+copy --from=development /usr/src/app .
 
-RUN yarn install --only=production
-
-COPY . .
-
-COPY --from=development /usr/src/app/dist ./dist
-
-CMD ["yarn", "start:migrate:prod"]
+CMD ["yarn", "start:prod"]
