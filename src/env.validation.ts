@@ -23,7 +23,7 @@ export class EnvironmentVariables {
   @IsNumber()
   @IsPositive()
   @IsNotEmpty()
-  readonly SERVER_PORT: number;
+  readonly PORT: number;
 
   /* Database ENV */
   @IsDefined()
