@@ -12,7 +12,9 @@ async function bootstrap() {
 
   const swaggerDocOptions = new DocumentBuilder()
     .setTitle(`Wizards' Almanac`)
-    .setDescription('A (Proof of Concept) API for the Runiverse')
+    .setDescription(
+      'An Open Source (Proof of Concept) API for [Forgotten Runes](https://www.forgottenrunes.com). <br><br>Brought to you by [Headmaster Aleister](https://www.forgottenrunes.com/lore/wizards/2633/0) aka [Malleus](https://twitter.com/0xMalleus).<br><br>Code available on [GitHub](https://github.com/0xMalleus/wizards-almanac).',
+    )
     .setVersion('0.0.1')
     .addBearerAuth()
     .build();
